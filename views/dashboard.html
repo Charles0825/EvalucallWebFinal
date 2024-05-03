@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Evalucall</title>
+  </head>
+  <body class="body">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="img">
+          <img src="../public/images/logo-head.png" />
+        </div>
+        <h2 class="logoname">EVALU<span>CALL</span></h2>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a class="dashboardLink">
+            <span class="material-icons-sharp"> dashboard </span>
+            <span class="links_name">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="agentsLink">
+            <span class="material-icons-sharp"> support_agent </span>
+            <span class="links_name">Agents</span>
+          </a>
+        </li>
+        <li>
+          <a class="historyLink">
+            <span class="material-icons-sharp"> history </span>
+            <span class="links_name">History</span>
+          </a>
+        </li>
+        <li>
+          <a class="settingsLink">
+            <span class="material-icons-sharp"> settings </span>
+            <span class="links_name">Setting</span>
+          </a>
+        </li>
+        <li class="logoutLink">
+          <a href="/logout">
+            <span class="material-icons-sharp"> logout </span>
+            <span class="links_name">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <nav class="navbar">
+      <div class="left">
+        <span class="material-icons-sharp sideicon"> menu_open </span>
+        <h1 class="section-title">Dashboard</h1>
+      </div>
+      <div class="user">
+        <div class="img">
+          <img id="profile-pic" src="" />
+        </div>
+        <div class="namepos">
+          <h5 id="userName">Undefined</h5>
+          <small>Admin</small>
+        </div>
+      </div>
+    </nav>
+    <section class="main dashboard active">
+      <div class="container">
+        <div class="boxx1">
+          <div>
+            <h2>PASSED</h2>
+            <span class="material-icons-sharp">check_circle</span>
+          </div>
+          <h1 id="passedCount">Loading...</h1>
+        </div>
+        <div class="boxx2">
+          <div>
+            <h2>FAILED</h2>
+            <span class="material-icons-sharp">cancel</span>
+          </div>
+          <h1 id="failedCount">Loading...</h1>
+        </div>
+        <div class="boxx3">
+          <div>
+            <h2>AVERAGE HANDLE</h2>
+            <span class="material-icons-sharp">functions</span>
+          </div>
+          <h1 id="averageHandle">Loading...</h1>
+        </div>
+        <div class="boxx4">
+          <div>
+            <h2>TOTAL CALLS</h2>
+            <span class="material-icons-sharp">call</span>
+          </div>
+          <h1 id="totalCalls">Loading...</h1>
+        </div>
+        <div class="boxx5">
+          <canvas id="agentCallsChart" width="400" height="400"></canvas>
+        </div>
+        <div class="boxx6">
+          <canvas id="callStatsChart" width="400" height="400"></canvas>
+        </div>
+      </div>
+    </section>
+    <section class="main agents">
+      <div class="container">
+        <div class="box">
+          <div class="searchbar-container">
+            <div class="searchbar">
+              <span class="material-icons-sharp"> search </span>
+              <input id="agent-search-input" type="text" placeholder="Search" />
+              <!-- <div class="filter">
+                <div class="labels">
+                  <small>Sort by</small>
+                  <label>Name</label>
+                </div>
+                <span class="material-icons-sharp"> keyboard_arrow_down </span>
+              </div> -->
+            </div>
+            <div id="addAgentButton" class="addcon">
+              <span class="material-icons-sharp"> person_add </span>
+              <h4>Add agent</h4>
+            </div>
+            <div id="download-agents" class="addcon">
+              <span class="material-icons-sharp"> file_download </span>
+              <h4>Download</h4>
+            </div>
+          </div>
+          <div class="table-container">
+            <table id="agents-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Date Created</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- <div class="pagination" id="pagination-agents"></div> -->
+        </div>
+      </div>
+      <div id="myModal-view-agents" class="modal-view-agents">
+        <div class="modal-content-view-agents">
+          <span class="close-view-agents">&times;</span>
+          <h4>ID: <span id="mva-id"></span></h4>
+          <h5>Passed <span id="mva-passed"></span></h5>
+          <h5>Failed <span id="mva-failed"></span></h5>
+          <h5>Average Duration: <span id="mva-duration"></span></h5>
+          <h5>Total Calls: <span id="mva-tcalls"></span></h5>
+        </div>
+      </div>
+      <div id="myModal-agents" class="modal-agents">
+        <div class="modal-content-agents">
+          <span class="close-agents">&times;</span>
+          <p id="modal-data-agents"></p>
+          <h1>Edit Agent</h1>
+          <form id="editAgentForm">
+            <div class="input-field">
+              <label for="firstName">First Name:</label>
+              <input type="text" id="firstNamea" name="firstName" />
+            </div>
+            <div class="input-field">
+              <label for="lastName">Last Name:</label>
+              <input type="text" id="lastNamea" name="lastName" />
+            </div>
+
+            <div class="input-field">
+              <label for="email">Email:</label>
+              <input type="email" id="emaila" name="email" />
+            </div>
+
+            <!-- Hidden input field to store agent ID -->
+            <input type="hidden" id="agentId" name="agentId" />
+            <div class="input-field">
+              <input type="submit" value="Update Agent" />
+            </div>
+            <p id="ares"></p>
+          </form>
+        </div>
+      </div>
+      <div id="myModal-add-agent" class="add-agent-modal">
+        <div class="add-agent-modal-content">
+          <span class="close">&times;</span>
+          <h1>Add Agent</h1>
+          <form action="/register-agent" method="post" id="addAgentForm">
+            <div class="input-field">
+              <label for="firstName">First Name:</label>
+              <input type="text" id="firstName" name="firstName" required />
+            </div>
+            <div class="input-field">
+              <label for="lastName">Last Name:</label>
+              <input type="text" id="lastName" name="lastName" required />
+            </div>
+            <div class="input-field">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+              /><br /><br />
+            </div>
+            <p class="res"></p>
+            <div class="input-field">
+              <input type="submit" value="Add Agent" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="main history">
+      <div class="container">
+        <div class="box">
+          <div class="searchbar-container">
+            <div class="searchbar">
+              <span class="material-icons-sharp"> search </span>
+              <input
+                id="history-search-input"
+                type="text"
+                placeholder="Search"
+              />
+              <!-- <div class="filter">
+                <div class="labels">
+                  <small>Sort by</small>
+                  <label>Name</label>
+                </div>
+                <span class="material-icons-sharp"> keyboard_arrow_down </span>
+              </div> -->
+            </div>
+            <div id="download-history" class="downcon">
+              <span class="material-icons-sharp"> file_download </span>
+              <h4>Download</h4>
+            </div>
+          </div>
+          <div class="table-container">
+            <table id="history-table">
+              <thead>
+                <tr>
+                  <th>Entry#</th>
+                  <th>Agent ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Duration</th>
+                  <th>DateTime</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="pagination-history"></div>
+        </div>
+      </div>
+      <!-- Modal HTML structure -->
+      <div id="myModal-history" class="modal-history">
+        <div class="modal-content-history">
+          <span class="close-history">&times;</span>
+          <div class="info">
+            <h1>Summary</h1>
+            <div>
+              <p>ID: <span id="id-h"></span></p>
+              <p>Name: <span id="name-h"></span></p>
+            </div>
+          </div>
+          <div class="table-container-h">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class Label</th>
+                  <th>YES / N/A</th>
+                  <th>Percentage (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Profanity</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Opening Spiel</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Closing Spiel</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Active Listening</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Customer Connection</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Helpfullness and Ownership</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Empathetic</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Professionalism</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="barchart-con">
+            <canvas id="barchart-h"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="main settings">
+      <div class="container">
+        <div class="account-settings">
+          <form
+            id="accountSettingsForm"
+            action="/update-account-settings"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <h1>Account Settings</h1>
+            <div class="hr"></div>
+            <div class="dp">
+              <div class="image">
+                <img id="settings-profile-pic" src="" />
+              </div>
+              <div class="box">
+                <h4>Profile Photo</h4>
+                <p>Accepted file type .png .jpeg Less than 5mb</p>
+                <input
+                  type="file"
+                  name="updateProfile"
+                  id="image-input"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div class="hr"></div>
+            <div class="box2">
+              <div class="namecon">
+                <div class="input-field">
+                  <label for="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstNamee"
+                    name="firstName"
+                    placeholder=""
+                    autocomplete="off"
+                    disabled
+                  />
+                </div>
+                <div class="input-field">
+                  <label for="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastNamee"
+                    name="lastName"
+                    placeholder=""
+                    autocomplete="off"
+                    disabled
+                  />
+                </div>
+                <div class="input-field">
+                  <label for="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="emaill"
+                    name="email"
+                    autocomplete="off"
+                    placeholder=""
+                  />
+                </div>
+                <p id="res"></p>
+                <div class="btns">
+                  <button>Save Changes</button>
+                  <button>Cancel</button>
+                </div>
+              </div>
+              <div class="passcon">
+                <div class="input-field">
+                  <label for="currentPass">Current Password</label>
+                  <input
+                    type="password"
+                    id="currentPass"
+                    name="currentPass"
+                    autocomplete="off"
+                    placeholder="*********"
+                  />
+                </div>
+                <div class="input-field">
+                  <label for="newPass">New Password</label>
+                  <input
+                    type="password"
+                    id="newPass"
+                    name="newPass"
+                    autocomplete="off"
+                    placeholder="*********"
+                  />
+                </div>
+                <div class="input-field">
+                  <label for="confirmPass">Confirm Passoword</label>
+                  <input
+                    type="password"
+                    id="confirmPass"
+                    autocomplete="off"
+                    name="confirmPass"
+                    placeholder="*********"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <script src="../public/js/dashboard.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.2/xlsx.full.min.js"></script>
+  </body>
+</html>

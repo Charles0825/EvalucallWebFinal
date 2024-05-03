@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/login.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo-container">
+        <img src="../public/images/logo-head.png" alt="Your Image" />
+        <h3>EVALU<span>CALL</span></h3>
+        <h4>LOGIN</h4>
+      </div>
+      <p id="res"></p>
+      <form id="loginForm">
+        <div class="input-field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter email"
+          />
+        </div>
+
+        <div class="input-field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+          />
+        </div>
+        <div class="input-field">
+          <span><a onclick="openModal()" href="#">Forgot password?</a></span>
+        </div>
+        <div class="input-field">
+          <input type="submit" value="Login" />
+        </div>
+      </form>
+      <div>
+        <label>
+          Don't have an account?
+          <a href="/register">Register</a>
+        </label>
+      </div>
+
+      <div class="modal-container" id="modal">
+        <div class="modal-content">
+          <span class="material-icons-sharp close" onclick="closeModal()">
+            arrow_back
+          </span>
+          <div>
+            <h2>Reset your password</h2>
+            <p>We will send an email to reset your password.</p>
+          </div>
+          <div class="input-field forgot">
+            <form id="forgotPassword">
+              <label for="email">Email</label>
+              <input
+                id="femail"
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+              />
+              <input type="submit" value="Email me"" />
+              <p class="res2"></p>
+            </form>
+          </div>
+          <!-- <div>
+            <label>
+              Didn't receive the email?
+              <a href="#" onclick="resendEmail()">Resend</a>
+            </label>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <script src="../public/js/login.js"></script>
+  </body>
+</html>

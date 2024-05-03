@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", san-serif;
+}
+
+:root {
+  --primary: #e45310;
+  --secondary: #032e41;
+}
+
+/* Base Font Size */
+html {
+  font-size: 14px;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Body */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url(../images/body-bg.png);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Logo Container */
+.logo-container {
+  max-width: 120px;
+  height: auto;
+  overflow: hidden;
+}
+
+.logo-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.logo-container h3,
+.logo-container h4 {
+  margin: 0;
+  text-align: center;
+  color: var(--secondary);
+}
+
+.logo-container h3 span {
+  color: var(--primary);
+}
+
+/* Login Container */
+.login-container {
+  width: 100%;
+  max-width: 460px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-container .display-error {
+  display: none;
+  width: 100%;
+  height: 38.09px;
+  border-radius: 8px;
+  border: 0.5px solid #ed4337;
+  align-items: center;
+  justify-content: center;
+  color: #ed4337;
+}
+
+.login-container .display-error p {
+  width: 100%;
+  text-align: center;
+}
+
+.login-container .display-error.active {
+  display: flex;
+}
+
+.login-container form {
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-field span a {
+  color: #333;
+  text-decoration: none;
+}
+
+.input-field span a:hover {
+  color: var(--primary);
+}
+.input-field label {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.input-field input[type="email"],
+.input-field input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.input-field input[type="email"]:focus,
+.input-field input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(228, 83, 16, 0.5);
+}
+
+.input-field input[type="submit"] {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.input-field input[type="submit"]:hover {
+  background-color: #f15a14;
+}
+
+/* ---------------------------------------- FORGOT PASSWORD MODAL ----------------------------------------*/
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px 70px;
+  border-radius: 5px;
+}
+
+.input-field.forgot {
+  margin-top: 30px;
+}
+
+.input-field.forgot input {
+  margin-bottom: 15px;
+}
+.input-field.forgot label {
+  align-self: baseline;
+}
+
+.input-field.forgot .notif {
+  align-self: center;
+  display: none;
+}
+.input-field.forgot .notif.active {
+  display: block;
+}
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.modal-content span {
+  position: relative;
+  right: 28px;
+  top: 40px;
+}
+
+.modal-content div h2,
+p {
+  text-align: center;
+  text-wrap: nowrap;
+}
+.modal-content div label {
+  color: #333;
+}
+.modal-content div label a {
+  text-decoration: none;
+  color: #333;
+}
+
+.modal-content div label a:hover {
+  color: var(--primary);
+}
+
+.login-container div label a {
+  color: #333;
+  text-decoration: none;
+}
+.login-container div label a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-container {
+    box-shadow: none;
+    border-radius: none;
+  }
+
+  body {
+    background-image: none;
+  }
+}
